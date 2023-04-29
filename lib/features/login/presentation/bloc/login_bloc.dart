@@ -18,6 +18,7 @@ class LoginBloc extends Bloc {
   @override
   mapListenEvent(Event event) {
     if (event is LoginEventOnReady) {
+      dispatchState(BlocStableState());
     } else if (event is LoginEventNavigate) {
       navigateThenUntil(event.context, routes.registerView);
     } else if (event is LoginEventSignIn) {
