@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
-import 'package:pokedex_3/features/home/data/mappers/url_mapper.dart';
 import 'package:pokedex_3/features/home/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
@@ -14,12 +13,7 @@ import 'package:pokedex_3/features/home/presentation/widgets/build_pokemon_conta
 class HomeStableState extends StatefulWidget {
   final BlocState state;
   final HomeBloc bloc;
-  final ScrollController controller;
-  const HomeStableState(
-      {required this.state,
-      required this.controller,
-      required this.bloc,
-      super.key});
+  const HomeStableState({required this.state, required this.bloc, super.key});
 
   @override
   State<HomeStableState> createState() => _HomeStableStateState();
@@ -27,19 +21,20 @@ class HomeStableState extends StatefulWidget {
 
 class _HomeStableStateState extends State<HomeStableState> {
   late HomeDataSources dataSources;
+  late ScrollController controller;
 
   @override
   void initState() {
     dataSources = GetIt.I.get();
+    controller = ScrollController();
 
-    widget.controller.addListener(infiniteScrolling);
+    controller.addListener(infiniteScrolling);
 
     super.initState();
   }
 
   infiniteScrolling() {
-    if (widget.controller.position.pixels ==
-        widget.controller.position.maxScrollExtent) {
+    if (controller.position.pixels == controller.position.maxScrollExtent) {
       widget.bloc.dispatchEvent(HomeEventFetchUrl());
     }
   }
@@ -49,7 +44,7 @@ class _HomeStableStateState extends State<HomeStableState> {
     final listUrls = widget.state.data as List<UrlEntity>;
 
     return GridView.builder(
-        controller: widget.controller,
+        controller: controller,
         itemCount: listUrls.length,
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

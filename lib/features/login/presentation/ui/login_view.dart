@@ -29,7 +29,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    print('teste');
     return Scaffold(
         body: BlocScreenBuilder(
             stream: bloc.state,

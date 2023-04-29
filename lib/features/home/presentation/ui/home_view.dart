@@ -17,11 +17,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late HomeBloc bloc;
-  late ScrollController controller;
   @override
   void initState() {
     bloc = GetIt.I.get();
-    controller = ScrollController();
 
     bloc.dispatchEvent(HomeEventFetchUrl());
 
@@ -35,7 +33,6 @@ class _HomeViewState extends State<HomeView> {
           stream: bloc.state,
           onStable: (onStable) => HomeStableState(
                 state: onStable,
-                controller: controller,
                 bloc: bloc,
               ),
           onError: (onError) => HomeErrorState(state: onError),
