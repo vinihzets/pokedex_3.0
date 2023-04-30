@@ -77,6 +77,7 @@ class _HomeStableStateState extends State<HomeStableState> {
     return BuildPokemonContainerCard(
       pokemon: pokemon,
       bloc: widget.bloc,
+      isSearch: false,
     );
   }
 
