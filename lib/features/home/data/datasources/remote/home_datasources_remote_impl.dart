@@ -47,4 +47,21 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
       throw const HttpException('Erro na requisicao de details');
     }
   }
+
+  @override
+  Future<PokemonEntity> fetchPokemonBySearch(String pokemonName) async {
+    var url = Uri.parse('https://pokeapi.co/api/v2/pokemon/$pokemonName');
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final decode = jsonDecode(response.body);
+
+      final toObject = PokemonMapper.fromMap(decode);
+
+      return toObject;
+    } else {
+      throw Exception();
+    }
+  }
 }

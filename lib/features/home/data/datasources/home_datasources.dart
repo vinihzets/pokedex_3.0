@@ -6,4 +6,5 @@ import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecas
 abstract class HomeDataSources {
   Future<List<UrlEntity>> fetchPokemonUrl(IndexApiParams params);
   Future<PokemonEntity> fetchPokemonDetails(String pokemonUrl);
+  Future<PokemonEntity> fetchPokemonBySearch(String pokemonName);
 }
