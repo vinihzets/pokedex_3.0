@@ -14,6 +14,7 @@ import 'package:pokedex_3/features/login/data/repositories/login_repository_imp.
 import 'package:pokedex_3/features/login/domain/repositories/login_repository.dart';
 import 'package:pokedex_3/features/login/domain/usecases/sign_in_usecase_impl.dart';
 import 'package:pokedex_3/features/login/presentation/bloc/login_bloc.dart';
+import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_details_bloc.dart';
 import 'package:pokedex_3/features/register/data/datasources/register_datasources.dart';
 import 'package:pokedex_3/features/register/data/datasources/remote/register_datasources_remote_imp.dart';
 import 'package:pokedex_3/features/register/data/repositories/register_repository_imp.dart';
@@ -62,7 +63,8 @@ class Injector {
 
     // --> bloc
 
-    getIt.registerFactory(() => HomeBloc(getIt()));
+    getIt.registerFactory(() => PokemonDetailsBloc());
+    getIt.registerFactory(() => HomeBloc(getIt(), getIt()));
     getIt.registerFactory(() => RegisterBloc(getIt()));
     getIt.registerFactory(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory(() => SplashBloc(getIt(), getIt()));

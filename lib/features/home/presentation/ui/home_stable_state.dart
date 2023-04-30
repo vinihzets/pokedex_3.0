@@ -74,7 +74,10 @@ class _HomeStableStateState extends State<HomeStableState> {
   }
 
   _buildStateData(PokemonEntity pokemon) {
-    return BuildPokemonContainerCard(pokemon: pokemon);
+    return BuildPokemonContainerCard(
+      pokemon: pokemon,
+      bloc: widget.bloc,
+    );
   }
 
   _buildStateIdle() {
