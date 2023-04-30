@@ -5,6 +5,7 @@ import 'package:pokedex_3/core/services/firebase/firebase_initialize.dart';
 import 'package:pokedex_3/core/utils/consts.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_view.dart';
 import 'package:pokedex_3/features/login/presentation/ui/login_view.dart';
+import 'package:pokedex_3/features/pokemon_details/presentation/ui/pokemon_details_view.dart';
 import 'package:pokedex_3/features/register/presentation/ui/register_view.dart';
 import 'package:pokedex_3/features/splash/presentation/ui/splash_view.dart';
 
@@ -23,6 +24,7 @@ void main() async {
       routes.loginView: (_) => const LoginView(),
       routes.registerView: (_) => const RegisterView(),
       routes.homeView: (_) => const HomeView(),
+      routes.pokemonDetails: (_) => const PokemonDetailsView(),
     },
     initialRoute: routes.splashView,
   ));
