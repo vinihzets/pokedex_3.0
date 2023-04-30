@@ -30,9 +30,13 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[850],
       body: BlocScreenBuilder(
           stream: bloc.state,
-          onStable: (onStable) => PokemonDetailsStableState(state: onStable),
+          onStable: (onStable) => PokemonDetailsStableState(
+                state: onStable,
+                bloc: bloc,
+              ),
           onError: (onError) => PokemonDetailsErrorState(state: onError),
           onLoading: (onLoading) =>
               PokemonDetailsLoadingState(state: onLoading),
