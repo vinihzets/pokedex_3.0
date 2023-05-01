@@ -1,5 +1,6 @@
 class UrlEntity {
   String url;
+  String name;
 
-  UrlEntity(this.url);
+  UrlEntity(this.url, this.name);
 }

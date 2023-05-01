@@ -9,7 +9,7 @@ class SplashBloc extends Bloc {
   ConstsRoutes routes;
   AuthService auth;
 
-  SplashBloc(this.routes, this.auth) {}
+  SplashBloc(this.routes, this.auth);
 
   @override
   mapListenEvent(Event event) {

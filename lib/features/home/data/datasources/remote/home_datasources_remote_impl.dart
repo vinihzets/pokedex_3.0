@@ -64,4 +64,43 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
       throw Exception();
     }
   }
+
+  @override
+  Future<List<UrlEntity>> fetchTypeUrl() async {
+    var url = Uri.parse('https://pokeapi.co/api/v2/type');
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final decode = jsonDecode(response.body);
+
+      final list = decode['results'] as List;
+
+      final listUrl = list.map((e) => UrlMapper.fromMap(e)).toList();
+
+      return listUrl;
+    } else {
+      throw const HttpException('Erro na requisicao api');
+    }
+  }
+
+  @override
+  Future<List<UrlEntity>> fetchPokemonsUrlByType(String typePokemonUrl) async {
+    var url = Uri.parse(typePokemonUrl);
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final decode = jsonDecode(response.body);
+
+      final listPokemons = decode['pokemon'] as List;
+
+      final parserToObject =
+          listPokemons.map((e) => UrlMapper.fromMap(e)).toList();
+
+      return parserToObject;
+    } else {
+      throw const HttpException('erro na requisicao');
+    }
+  }
 }

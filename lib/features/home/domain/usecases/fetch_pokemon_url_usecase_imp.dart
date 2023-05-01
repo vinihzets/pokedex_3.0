@@ -12,7 +12,7 @@ class FetchPokemonUrlUseCaseImpl
 
   @override
   Future<Either<Failure, List<UrlEntity>>> call(IndexApiParams params) {
-    return repository.fetchPokemonsUrl(params);
+    return repository.fetchPokemonUrl(params);
   }
 }
 

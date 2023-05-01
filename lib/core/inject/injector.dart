@@ -6,6 +6,7 @@ import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/features/home/data/datasources/remote/home_datasources_remote_impl.dart';
 import 'package:pokedex_3/features/home/data/repositories/home_repository_impl.dart';
 import 'package:pokedex_3/features/home/domain/repositories/home_repository.dart';
+import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
 import 'package:pokedex_3/features/login/data/datasources/login_datasources.dart';
@@ -57,6 +58,7 @@ class Injector {
 
     //usecases
 
+    getIt.registerLazySingleton(() => FetchPokemonUrlTypeUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => FetchPokemonUrlUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => SignInUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => SignUpUseCaseImpl(getIt()));
@@ -64,7 +66,7 @@ class Injector {
     // --> bloc
 
     getIt.registerFactory(() => PokemonDetailsBloc());
-    getIt.registerFactory(() => HomeBloc(getIt(), getIt()));
+    getIt.registerFactory(() => HomeBloc(getIt(), getIt(), getIt()));
     getIt.registerFactory(() => RegisterBloc(getIt()));
     getIt.registerFactory(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory(() => SplashBloc(getIt(), getIt()));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
+import 'package:pokedex_3/features/home/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
 import 'package:pokedex_3/features/home/presentation/widgets/build_pokemon_container_card.dart';
 
@@ -26,23 +27,11 @@ class PokemonSearch extends SearchDelegate<String> {
           if (snapshot.hasData) {
             final pokemon = snapshot.data!;
 
-            return Scaffold(
-              backgroundColor: pokemon.types.first.element.getColor(),
-              body: Center(
-                  child: BuildPokemonContainerCard(
-                pokemon: pokemon,
-                bloc: bloc,
-                isSearch: true,
-              )),
-            );
+            return _buildData(pokemon);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return _buildLoading();
           } else {
-            return Center(
-              child: Text('O pokemon $query nao foi encontrado'),
-            );
+            return _buildError();
           }
         });
   }
@@ -52,9 +41,27 @@ class PokemonSearch extends SearchDelegate<String> {
     return const SizedBox.shrink();
   }
 
-  _buildData() {}
+  _buildData(PokemonEntity pokemon) {
+    return Scaffold(
+      backgroundColor: pokemon.types.first.element.getColor(),
+      body: Center(
+          child: BuildPokemonContainerCard(
+        pokemon: pokemon,
+        bloc: bloc,
+        isSearch: true,
+      )),
+    );
+  }
 
-  _buildLoading() {}
+  _buildLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
 
-  _buildError() {}
+  _buildError() {
+    return Center(
+      child: Text('O pokemon $query nao foi encontrado'),
+    );
+  }
 }

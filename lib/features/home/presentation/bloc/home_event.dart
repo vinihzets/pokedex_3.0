@@ -11,3 +11,15 @@ class HomeEventNavigateDetails implements HomeEvent {
 
   HomeEventNavigateDetails(this.context, this.args);
 }
+
+class HomeEventFetchPokemonTypeUrl implements HomeEvent {
+  String url;
+
+  HomeEventFetchPokemonTypeUrl(this.url);
+}
+
+class HomeEventNavigatePop implements HomeEvent {
+  BuildContext context;
+
+  HomeEventNavigatePop(this.context);
+}
