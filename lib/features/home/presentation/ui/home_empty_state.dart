@@ -8,7 +8,11 @@ class HomeEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Nulo, nenhum pokemon retornado')),
+      body: Center(
+          child: Text(
+        'Nenhum pokemon com este elemento encontrado',
+        style: TextStyle(fontWeight: FontWeight.w600),
+      )),
     );
   }
 }

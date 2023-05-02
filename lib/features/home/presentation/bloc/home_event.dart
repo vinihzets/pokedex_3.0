@@ -30,3 +30,9 @@ class HomeEventSignOut implements HomeEvent {
 
   HomeEventSignOut(this.context);
 }
+
+class HomeEventOpenDrawer implements HomeEvent {
+  BuildContext context;
+
+  HomeEventOpenDrawer(this.context);
+}

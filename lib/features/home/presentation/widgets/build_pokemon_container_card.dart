@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/utils/first_string_uppercase.dart';
-import 'package:pokedex_3/features/home/domain/entities/pokemon_entity.dart';
+import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_event.dart';
 

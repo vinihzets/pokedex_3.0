@@ -40,6 +40,8 @@ class HomeBloc extends Bloc {
       navigatePop(event.context);
     } else if (event is HomeEventSignOut) {
       _handleSignOut(event.context);
+    } else if (event is HomeEventOpenDrawer) {
+      _handleOpenDrawer(event.context);
     }
   }
 
@@ -65,8 +67,13 @@ class HomeBloc extends Bloc {
     fetchRequest.fold((l) {
       dispatchState(BlocErrorState(error: l.message));
     }, (r) {
-      dispatchState(BlocStableState(data: r));
-      navigatePop(context);
+      if (r.isEmpty) {
+        dispatchState(BlocEmptyState());
+        navigatePop(context);
+      } else {
+        dispatchState(BlocStableState(data: r));
+        navigatePop(context);
+      }
     });
   }
 
@@ -80,5 +87,9 @@ class HomeBloc extends Bloc {
     }, (r) {
       navigateRemoveUntil(context, routes.loginView);
     });
+  }
+
+  _handleOpenDrawer(BuildContext context) {
+    return Scaffold.of(context).openDrawer();
   }
 }

@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_3/core/components/bloc_screen_builder.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
-import 'package:pokedex_3/features/home/domain/entities/type_entity.dart';
+import 'package:pokedex_3/core/global/entities/type_entity.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_event.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_empty_state.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_error_state.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_loading_state.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_stable_state.dart';
+import 'package:pokedex_3/features/home/presentation/widgets/custom_drawer.dart';
 import 'package:pokedex_3/features/home/presentation/widgets/pokemon_search.dart';
 
 class HomeView extends StatefulWidget {
@@ -36,15 +37,11 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(),
-      ),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
+              onPressed: () => bloc.dispatchEvent(HomeEventOpenDrawer(context)),
               icon: const Icon(
                 Icons.library_books,
                 color: Colors.black,
@@ -72,7 +69,10 @@ class _HomeViewState extends State<HomeView> {
               )),
           TextButton(
               onPressed: () => bloc.dispatchEvent(HomeEventSignOut(context)),
-              child: Text('deslogar'))
+              child: const Text(
+                'deslogar',
+                style: TextStyle(color: Colors.black),
+              ))
         ],
       ),
       body: BlocScreenBuilder(

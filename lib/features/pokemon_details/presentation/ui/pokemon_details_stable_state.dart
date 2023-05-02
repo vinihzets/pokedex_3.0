@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/utils/first_string_uppercase.dart';
-import 'package:pokedex_3/features/home/domain/entities/pokemon_entity.dart';
+import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_details_bloc.dart';
 import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_details_event.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -86,6 +86,10 @@ class PokemonDetailsStableState extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     color: Colors.white),
               ),
+              IconButton(
+                  onPressed: () => bloc.dispatchEvent(
+                      PokemonDetailsAddFavorites(pokemon, context)),
+                  icon: const Icon(Icons.star)),
               Text(
                 '#0${pokemon.id}',
                 style: const TextStyle(color: Colors.white, fontSize: 26),
