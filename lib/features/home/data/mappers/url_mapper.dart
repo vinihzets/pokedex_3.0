@@ -1,4 +1,4 @@
-import 'package:pokedex_3/features/home/domain/entities/type_entity.dart';
+import 'package:pokedex_3/core/global/entities/type_entity.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 
 class UrlMapper extends UrlEntity {
