@@ -10,4 +10,5 @@ abstract class HomeRepository {
       IndexApiParams params);
   Future<Either<Failure, List<UrlEntity>>> fetchPokemonTypeUrl(
       TypeParams params);
+  Future<Either<Failure, void>> signOut();
 }

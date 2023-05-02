@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pokedex_3/core/services/auth/auth_service.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/features/home/data/mappers/pokemon_mapper.dart';
 import 'package:pokedex_3/features/home/data/mappers/url_mapper.dart';
@@ -11,6 +13,10 @@ import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecas
 import 'package:http/http.dart' as http;
 
 class HomeDataSourcesRemoteImpl implements HomeDataSources {
+  AuthService auth;
+
+  HomeDataSourcesRemoteImpl(this.auth);
+
   @override
   Future<List<UrlEntity>> fetchPokemonUrl(IndexApiParams params) async {
     var url = Uri.parse(
@@ -101,6 +107,19 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
       return parserToObject;
     } else {
       throw const HttpException('erro na requisicao');
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      final signOutRequest = await auth.auth.signOut();
+
+      return signOutRequest;
+    } on FirebaseAuthMultiFactorException catch (e) {
+      throw FirebaseAuthException(code: e.code, message: e.message);
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthException(code: e.code, message: e.message);
     }
   }
 }

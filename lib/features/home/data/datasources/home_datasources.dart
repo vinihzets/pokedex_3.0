@@ -9,4 +9,5 @@ abstract class HomeDataSources {
   Future<PokemonEntity> fetchPokemonBySearch(String pokemonName);
   Future<List<UrlEntity>> fetchTypeUrl();
   Future<List<UrlEntity>> fetchPokemonsUrlByType(String pokemonUrl);
+  Future<void> signOut();
 }

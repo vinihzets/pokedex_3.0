@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/architeture/event.dart';
@@ -10,9 +11,12 @@ import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_u
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_event.dart';
 
+import '../../domain/usecases/sign_out_usecase_impl.dart';
+
 class HomeBloc extends Bloc {
   FetchPokemonUrlUseCaseImpl fetchPokemonUrlUseCaseImpl;
   FetchPokemonUrlTypeUseCaseImpl fetchPokemonUrlTypeUseCaseImpl;
+  SignOutUseCaseImpl signOutUseCaseImpl;
   ConstsRoutes routes;
   int currentIndex = 0;
   int limit = 20;
@@ -20,7 +24,7 @@ class HomeBloc extends Bloc {
   late List<UrlEntity> listUrls;
 
   HomeBloc(this.fetchPokemonUrlUseCaseImpl, this.routes,
-      this.fetchPokemonUrlTypeUseCaseImpl) {
+      this.fetchPokemonUrlTypeUseCaseImpl, this.signOutUseCaseImpl) {
     listUrls = [];
   }
 
@@ -31,9 +35,11 @@ class HomeBloc extends Bloc {
     } else if (event is HomeEventNavigateDetails) {
       navigateThenUntilArgs(event.context, routes.pokemonDetails, event.args);
     } else if (event is HomeEventFetchPokemonTypeUrl) {
-      _handleFetchPokemonTypeUrl(event.url);
+      _handleFetchPokemonTypeUrl(event.context, event.url);
     } else if (event is HomeEventNavigatePop) {
       navigatePop(event.context);
+    } else if (event is HomeEventSignOut) {
+      _handleSignOut(event.context);
     }
   }
 
@@ -51,7 +57,7 @@ class HomeBloc extends Bloc {
     });
   }
 
-  _handleFetchPokemonTypeUrl(String typeUrl) async {
+  _handleFetchPokemonTypeUrl(BuildContext context, String typeUrl) async {
     dispatchState(BlocLoadingState());
     final fetchRequest =
         await fetchPokemonUrlTypeUseCaseImpl.call(TypeParams(typeUrl));
@@ -60,6 +66,19 @@ class HomeBloc extends Bloc {
       dispatchState(BlocErrorState(error: l.message));
     }, (r) {
       dispatchState(BlocStableState(data: r));
+      navigatePop(context);
+    });
+  }
+
+  _handleSignOut(
+    BuildContext context,
+  ) async {
+    final signOutRequest = await signOutUseCaseImpl.call(NoParams());
+
+    signOutRequest.fold((l) {
+      showSnack(context, l.message, Colors.red);
+    }, (r) {
+      navigateRemoveUntil(context, routes.loginView);
     });
   }
 }

@@ -36,13 +36,20 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(),
+      ),
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => _buildSearch(),
-            icon: const Icon(
-              Icons.search,
-              color: Colors.black,
-            )),
+        leading: Builder(
+          builder: (context) => IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(
+                Icons.library_books,
+                color: Colors.black,
+              )),
+        ),
         title: const Text(
           'Dex 3.0',
           style: TextStyle(color: Colors.black, fontSize: 24),
@@ -56,7 +63,16 @@ class _HomeViewState extends State<HomeView> {
               icon: const Icon(
                 Icons.library_books,
                 color: Colors.black,
-              ))
+              )),
+          IconButton(
+              onPressed: () => _buildSearch(),
+              icon: const Icon(
+                Icons.search,
+                color: Colors.black,
+              )),
+          TextButton(
+              onPressed: () => bloc.dispatchEvent(HomeEventSignOut(context)),
+              child: Text('deslogar'))
         ],
       ),
       body: BlocScreenBuilder(
@@ -92,10 +108,8 @@ class _HomeViewState extends State<HomeView> {
                     final TypeEnum type = TypeEnum.createFromName(e.name);
 
                     return GestureDetector(
-                      onTap: () {
-                        bloc.dispatchEvent(HomeEventFetchPokemonTypeUrl(e.url));
-                        bloc.dispatchEvent(HomeEventNavigatePop(context));
-                      },
+                      onTap: () => bloc.dispatchEvent(
+                          HomeEventFetchPokemonTypeUrl(e.url, context)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 12.0, horizontal: 12),

@@ -14,12 +14,19 @@ class HomeEventNavigateDetails implements HomeEvent {
 
 class HomeEventFetchPokemonTypeUrl implements HomeEvent {
   String url;
+  BuildContext context;
 
-  HomeEventFetchPokemonTypeUrl(this.url);
+  HomeEventFetchPokemonTypeUrl(this.url, this.context);
 }
 
 class HomeEventNavigatePop implements HomeEvent {
   BuildContext context;
 
   HomeEventNavigatePop(this.context);
+}
+
+class HomeEventSignOut implements HomeEvent {
+  BuildContext context;
+
+  HomeEventSignOut(this.context);
 }

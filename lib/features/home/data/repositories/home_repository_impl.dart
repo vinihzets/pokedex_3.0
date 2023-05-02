@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/core/failure/failure.dart';
@@ -34,6 +35,17 @@ class HomeRepositoryImpl implements HomeRepository {
       return Right(fetchRequest);
     } on HttpException catch (e) {
       return Left(RemoteFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      final signOutRequest = await dataSources.signOut();
+
+      return Right(signOutRequest);
+    } on FirebaseAuthException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
     }
   }
 }
