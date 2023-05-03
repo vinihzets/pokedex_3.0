@@ -8,9 +8,8 @@ class SignOutUseCaseImpl implements UseCase<NoParams, void> {
 
   SignOutUseCaseImpl(this.repository);
 
+  @override
   Future<Either<Failure, void>> call(NoParams params) {
     return repository.signOut();
   }
 }
-
-class NoParams {}

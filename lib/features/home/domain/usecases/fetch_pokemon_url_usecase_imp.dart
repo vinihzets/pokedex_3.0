@@ -15,10 +15,3 @@ class FetchPokemonUrlUseCaseImpl
     return repository.fetchPokemonUrl(params);
   }
 }
-
-class IndexApiParams {
-  int currentIndex;
-  int limit;
-
-  IndexApiParams(this.currentIndex, this.limit);
-}

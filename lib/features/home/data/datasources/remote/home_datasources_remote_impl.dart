@@ -3,19 +3,23 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pokedex_3/core/global/mappers/pokemon_firebase_mapper.dart';
 import 'package:pokedex_3/core/services/auth/auth_service.dart';
+import 'package:pokedex_3/core/services/database/database_service.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/core/global/mappers/pokemon_mapper.dart';
 import 'package:pokedex_3/features/home/data/mappers/url_mapper.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
-import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../../../core/architeture/usecase.dart';
 
 class HomeDataSourcesRemoteImpl implements HomeDataSources {
   AuthService auth;
+  DatabaseService databaseService;
 
-  HomeDataSourcesRemoteImpl(this.auth);
+  HomeDataSourcesRemoteImpl(this.auth, this.databaseService);
 
   @override
   Future<List<UrlEntity>> fetchPokemonUrl(IndexApiParams params) async {
@@ -46,9 +50,23 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
     if (response.statusCode == 200) {
       final decode = jsonDecode(response.body);
 
-      final parseToObject = PokemonMapper.fromMap(decode);
+      final pokemon = PokemonMapper.fromMap(decode);
 
-      return parseToObject;
+      final docsGet =
+          await databaseService.database.collection('favorites').get();
+
+      final listFavorites = docsGet.docs
+          .map((e) => UserPokemonFirebaseMapper.fromMap(e.data()))
+          .where((element) => element.userId == auth.auth.currentUser!.uid)
+          .toList();
+
+      for (var element in listFavorites) {
+        if (pokemon.name == element.name) {
+          pokemon.isFavorited = true;
+        }
+      }
+
+      return pokemon;
     } else {
       throw const HttpException('Erro na requisicao de details');
     }

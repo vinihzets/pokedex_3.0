@@ -15,9 +15,3 @@ class FetchPokemonUrlTypeUseCaseImpl
     return repository.fetchPokemonTypeUrl(params);
   }
 }
-
-class TypeParams {
-  String url;
-
-  TypeParams(this.url);
-}

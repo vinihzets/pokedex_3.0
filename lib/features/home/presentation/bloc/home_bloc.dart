@@ -5,12 +5,12 @@ import 'package:pokedex_3/core/architeture/bloc.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/architeture/event.dart';
 import 'package:pokedex_3/core/utils/consts.dart';
-import 'package:pokedex_3/features/home/data/mappers/url_mapper.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_event.dart';
 
+import '../../../../core/architeture/usecase.dart';
 import '../../domain/usecases/sign_out_usecase_impl.dart';
 
 class HomeBloc extends Bloc {
@@ -23,8 +23,12 @@ class HomeBloc extends Bloc {
 
   late List<UrlEntity> listUrls;
 
-  HomeBloc(this.fetchPokemonUrlUseCaseImpl, this.routes,
-      this.fetchPokemonUrlTypeUseCaseImpl, this.signOutUseCaseImpl) {
+  HomeBloc(
+    this.fetchPokemonUrlUseCaseImpl,
+    this.routes,
+    this.fetchPokemonUrlTypeUseCaseImpl,
+    this.signOutUseCaseImpl,
+  ) {
     listUrls = [];
   }
 

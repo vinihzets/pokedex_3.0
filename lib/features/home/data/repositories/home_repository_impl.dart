@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:pokedex_3/features/home/domain/repositories/home_repository.dart';
-import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_usecase_imp.dart';
-import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
+
+import '../../../../core/architeture/usecase.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   HomeDataSources dataSources;
