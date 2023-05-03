@@ -14,18 +14,25 @@ void main() async {
 
   await FirebaseInit.initalize();
 
-  late ConstsRoutes routes;
+  late ConstsRoutes route;
 
-  routes = GetIt.I.get();
+  route = GetIt.I.get();
 
   runApp(MaterialApp(
-    routes: {
-      routes.splashView: (_) => const SplashView(),
-      routes.loginView: (_) => const LoginView(),
-      routes.registerView: (_) => const RegisterView(),
-      routes.homeView: (_) => const HomeView(),
-      routes.pokemonDetails: (_) => const PokemonDetailsView(),
-    },
-    initialRoute: routes.splashView,
+    routes: Routes.build(route),
+    initialRoute: route.splashView,
   ));
+}
+
+class Routes {
+  static build(ConstsRoutes route) {
+    final routes = <String, Widget Function(BuildContext)>{
+      route.splashView: (_) => const SplashView(),
+      route.loginView: (_) => const LoginView(),
+      route.registerView: (_) => const RegisterView(),
+      route.homeView: (_) => const HomeView(),
+      route.pokemonDetails: (_) => const PokemonDetailsView(),
+    };
+    return routes;
+  }
 }
