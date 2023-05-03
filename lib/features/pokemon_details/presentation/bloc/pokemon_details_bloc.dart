@@ -3,13 +3,15 @@ import 'package:pokedex_3/core/architeture/bloc.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/architeture/event.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
+import 'package:pokedex_3/core/utils/consts.dart';
 import 'package:pokedex_3/features/pokemon_details/domain/usecases/add_favorites_usecase_impl.dart';
 import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_details_event.dart';
 
 class PokemonDetailsBloc extends Bloc {
   AddFavoritesUseCaseImpl addFavoritesUseCaseImpl;
+  ConstsRoutes routes;
 
-  PokemonDetailsBloc(this.addFavoritesUseCaseImpl);
+  PokemonDetailsBloc(this.addFavoritesUseCaseImpl, this.routes);
 
   @override
   mapListenEvent(Event event) {
@@ -35,7 +37,7 @@ class PokemonDetailsBloc extends Bloc {
     }, (r) {
       showSnack(context, 'Pokemon Adicionado a lista de favoritos com sucesso',
           Colors.green);
-      navigatePop(context);
+      navigateRemoveUntil(context, routes.homeView);
     });
   }
 }

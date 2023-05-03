@@ -6,7 +6,7 @@ class UserPokemonFirebaseMapper extends PokemonEntity {
   String userId;
 
   UserPokemonFirebaseMapper(this.documentId, this.userId, super.name, super.id,
-      super.weight, super.height, super.sprite, super.types);
+      super.weight, super.height, super.sprite, super.types, super.isFavorited);
 
   factory UserPokemonFirebaseMapper.fromMap(Map map) {
     return UserPokemonFirebaseMapper(
@@ -18,6 +18,7 @@ class UserPokemonFirebaseMapper extends PokemonEntity {
       map['height'],
       map['sprites']['other']['official-artwork']['front_default'],
       (map['types'] as List).map((e) => TypeMapper.fromMap(e)).toList(),
+      map['isFavorited'] ?? false,
     );
   }
 }

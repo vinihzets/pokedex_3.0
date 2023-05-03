@@ -7,13 +7,8 @@ class PokemonEntity {
   int height;
   String sprite;
   List<TypeEntity> types;
+  bool isFavorited;
 
-  PokemonEntity(
-    this.name,
-    this.id,
-    this.weight,
-    this.height,
-    this.sprite,
-    this.types,
-  );
+  PokemonEntity(this.name, this.id, this.weight, this.height, this.sprite,
+      this.types, this.isFavorited);
 }

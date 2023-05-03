@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
                 color: Colors.black,
               )),
           IconButton(
-              onPressed: () => _buildSearch(),
+              onPressed: () => bloc.dispatchEvent(HomeEventGetListFavorites()),
               icon: const Icon(
                 Icons.search,
                 color: Colors.black,

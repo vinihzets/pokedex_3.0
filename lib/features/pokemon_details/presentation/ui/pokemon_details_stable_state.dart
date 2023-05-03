@@ -6,15 +6,21 @@ import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_det
 import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_details_event.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class PokemonDetailsStableState extends StatelessWidget {
+class PokemonDetailsStableState extends StatefulWidget {
   final BlocState state;
   final PokemonDetailsBloc bloc;
   const PokemonDetailsStableState(
       {required this.state, required this.bloc, super.key});
 
   @override
+  State<PokemonDetailsStableState> createState() =>
+      _PokemonDetailsStableStateState();
+}
+
+class _PokemonDetailsStableStateState extends State<PokemonDetailsStableState> {
+  @override
   Widget build(BuildContext context) {
-    final pokemon = state.data as PokemonEntity;
+    final pokemon = widget.state.data as PokemonEntity;
 
     return SlidingUpPanel(
       maxHeight: 210,
@@ -73,8 +79,8 @@ class PokemonDetailsStableState extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                  onPressed: () =>
-                      bloc.dispatchEvent(PokemonDetailsNavigateToHome(context)),
+                  onPressed: () => widget.bloc
+                      .dispatchEvent(PokemonDetailsNavigateToHome(context)),
                   icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
@@ -87,9 +93,19 @@ class PokemonDetailsStableState extends StatelessWidget {
                     color: Colors.white),
               ),
               IconButton(
-                  onPressed: () => bloc.dispatchEvent(
-                      PokemonDetailsAddFavorites(pokemon, context)),
-                  icon: const Icon(Icons.star)),
+                  onPressed: () {
+                    widget.bloc.dispatchEvent(
+                        PokemonDetailsAddFavorites(pokemon, context));
+                  },
+                  icon: pokemon.isFavorited == true
+                      ? const Icon(
+                          Icons.star,
+                          color: Colors.white,
+                        )
+                      : const Icon(
+                          Icons.star_border_outlined,
+                          color: Colors.white,
+                        )),
               Text(
                 '#0${pokemon.id}',
                 style: const TextStyle(color: Colors.white, fontSize: 26),

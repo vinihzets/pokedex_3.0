@@ -36,3 +36,5 @@ class HomeEventOpenDrawer implements HomeEvent {
 
   HomeEventOpenDrawer(this.context);
 }
+
+class HomeEventGetListFavorites implements HomeEvent {}

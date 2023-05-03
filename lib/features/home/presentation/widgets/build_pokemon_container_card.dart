@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/utils/first_string_uppercase.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
@@ -26,17 +28,38 @@ class BuildPokemonContainerCard extends StatelessWidget {
             color: pokemon.types.first.element.getColor(),
             borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            isSearch == false
-                ? Text(
-                    pokemon.name.toUpperCaseFirstString(),
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+            pokemon.isFavorited == true
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      isSearch == false
+                          ? Text(
+                              pokemon.name.toUpperCaseFirstString(),
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            )
+                          : Text(pokemon.name.toUpperCaseFirstString(),
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold)),
+                      const Icon(
+                        Icons.star,
+                        size: 12,
+                        color: Colors.black,
+                      ),
+                    ],
                   )
-                : Text(pokemon.name.toUpperCaseFirstString(),
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold)),
+                : isSearch == false
+                    ? Text(
+                        pokemon.name.toUpperCaseFirstString(),
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    : Text(pokemon.name.toUpperCaseFirstString(),
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
             isSearch == false
                 ? Row(
                     mainAxisSize: MainAxisSize.min,

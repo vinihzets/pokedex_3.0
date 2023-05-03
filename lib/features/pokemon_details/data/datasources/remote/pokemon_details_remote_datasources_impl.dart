@@ -38,7 +38,9 @@ class PokemonDetailsRemoteDataSourcesRemoteImpl
           .doc(value.id)
           .update({'docId': value.id, 'userId': auth.auth.currentUser!.uid}));
     } else if (listFilter.isNotEmpty) {
-      throw Exception();
+      for (var e in listFilter) {
+        dbFavorites.doc(e.documentId).delete();
+      }
     }
   }
 }

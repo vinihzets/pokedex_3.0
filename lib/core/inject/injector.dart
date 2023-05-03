@@ -45,7 +45,7 @@ class Injector {
         () => PokemonDetailsRemoteDataSourcesRemoteImpl(getIt(), getIt()));
 
     getIt.registerLazySingleton<HomeDataSources>(
-        () => HomeDataSourcesRemoteImpl(getIt()));
+        () => HomeDataSourcesRemoteImpl(getIt(), getIt()));
 
     getIt.registerLazySingleton<LoginDataSources>(
         () => LoginDataSourcesRemoteImpl(getIt()));
@@ -78,7 +78,7 @@ class Injector {
 
     // --> bloc
 
-    getIt.registerFactory(() => PokemonDetailsBloc(getIt()));
+    getIt.registerFactory(() => PokemonDetailsBloc(getIt(), getIt()));
     getIt.registerFactory(() => HomeBloc(getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory(() => RegisterBloc(getIt()));
     getIt.registerFactory(() => LoginBloc(getIt(), getIt()));
