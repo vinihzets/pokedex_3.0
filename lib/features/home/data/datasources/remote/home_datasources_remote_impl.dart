@@ -56,7 +56,7 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
           await databaseService.database.collection('favorites').get();
 
       final listFavorites = docsGet.docs
-          .map((e) => UserPokemonFirebaseMapper.fromMap(e.data()))
+          .map((e) => PokemonFavoriteFirebaseMapper.fromMap(e.data()))
           .where((element) => element.userId == auth.auth.currentUser!.uid)
           .toList();
 

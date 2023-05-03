@@ -24,7 +24,7 @@ class PokemonDetailsRemoteDataSourcesRemoteImpl
     final favoritesGet = await dbFavorites.get();
 
     final listFavorites = favoritesGet.docs
-        .map((e) => UserPokemonFirebaseMapper.fromMap(e.data()))
+        .map((e) => PokemonFavoriteFirebaseMapper.fromMap(e.data()))
         .toList();
 
     final listFilter = listFavorites

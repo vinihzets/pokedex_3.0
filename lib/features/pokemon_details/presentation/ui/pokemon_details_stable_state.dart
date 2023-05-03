@@ -6,21 +6,15 @@ import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_det
 import 'package:pokedex_3/features/pokemon_details/presentation/bloc/pokemon_details_event.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class PokemonDetailsStableState extends StatefulWidget {
+class PokemonDetailsStableState extends StatelessWidget {
   final BlocState state;
   final PokemonDetailsBloc bloc;
   const PokemonDetailsStableState(
       {required this.state, required this.bloc, super.key});
 
   @override
-  State<PokemonDetailsStableState> createState() =>
-      _PokemonDetailsStableStateState();
-}
-
-class _PokemonDetailsStableStateState extends State<PokemonDetailsStableState> {
-  @override
   Widget build(BuildContext context) {
-    final pokemon = widget.state.data as PokemonEntity;
+    final pokemon = state.data as PokemonEntity;
 
     return SlidingUpPanel(
       maxHeight: 210,
@@ -79,8 +73,8 @@ class _PokemonDetailsStableStateState extends State<PokemonDetailsStableState> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                  onPressed: () => widget.bloc
-                      .dispatchEvent(PokemonDetailsNavigateToHome(context)),
+                  onPressed: () =>
+                      bloc.dispatchEvent(PokemonDetailsNavigateToHome(context)),
                   icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
@@ -94,7 +88,7 @@ class _PokemonDetailsStableStateState extends State<PokemonDetailsStableState> {
               ),
               IconButton(
                   onPressed: () {
-                    widget.bloc.dispatchEvent(
+                    bloc.dispatchEvent(
                         PokemonDetailsAddFavorites(pokemon, context));
                   },
                   icon: pokemon.isFavorited == true

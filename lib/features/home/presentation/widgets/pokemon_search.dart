@@ -44,12 +44,14 @@ class PokemonSearch extends SearchDelegate<String> {
   _buildData(PokemonEntity pokemon) {
     return Scaffold(
       backgroundColor: pokemon.types.first.element.getColor(),
-      body: Center(
-          child: BuildPokemonContainerCard(
-        pokemon: pokemon,
-        bloc: bloc,
-        isSearch: true,
-      )),
+      body: SingleChildScrollView(
+        child: Center(
+            child: BuildPokemonContainerCard(
+          pokemon: pokemon,
+          bloc: bloc,
+          isSearch: true,
+        )),
+      ),
     );
   }
 

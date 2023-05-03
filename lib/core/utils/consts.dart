@@ -4,4 +4,5 @@ class ConstsRoutes {
   final String registerView = '/register';
   final String homeView = '/home';
   final String pokemonDetails = 'pokemonDetails';
+  final String favoriteView = 'favorite';
 }

@@ -38,43 +38,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const CustomDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-              onPressed: () => bloc.dispatchEvent(HomeEventOpenDrawer(context)),
-              icon: const Icon(
-                Icons.library_books,
-                color: Colors.black,
-              )),
-        ),
-        title: const Text(
-          'Dex 3.0',
-          style: TextStyle(color: Colors.black, fontSize: 24),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              onPressed: () => _buildModalBottomSheet(),
-              icon: const Icon(
-                Icons.library_books,
-                color: Colors.black,
-              )),
-          IconButton(
-              onPressed: () => bloc.dispatchEvent(HomeEventGetListFavorites()),
-              icon: const Icon(
-                Icons.search,
-                color: Colors.black,
-              )),
-          TextButton(
-              onPressed: () => bloc.dispatchEvent(HomeEventSignOut(context)),
-              child: const Text(
-                'deslogar',
-                style: TextStyle(color: Colors.black),
-              ))
-        ],
-      ),
+      appBar: _buildAppBar(),
       body: BlocScreenBuilder(
           stream: bloc.state,
           onStable: (onStable) => HomeStableState(
@@ -84,6 +48,46 @@ class _HomeViewState extends State<HomeView> {
           onError: (onError) => HomeErrorState(state: onError),
           onLoading: (onLoading) => HomeLoadingState(state: onLoading),
           onEmpty: (onEmpty) => HomeEmptyState(state: onEmpty)),
+    );
+  }
+
+  _buildAppBar() {
+    return AppBar(
+      leading: Builder(
+        builder: (context) => IconButton(
+            onPressed: () => bloc.dispatchEvent(HomeEventOpenDrawer(context)),
+            icon: const Icon(
+              Icons.library_books,
+              color: Colors.black,
+            )),
+      ),
+      title: const Text(
+        'Dex 3.0',
+        style: TextStyle(color: Colors.black, fontSize: 24),
+      ),
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: Colors.white,
+      actions: [
+        IconButton(
+            onPressed: () => _buildModalBottomSheet(),
+            icon: const Icon(
+              Icons.library_books,
+              color: Colors.black,
+            )),
+        IconButton(
+            onPressed: () => _buildSearch(),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.black,
+            )),
+        TextButton(
+            onPressed: () => bloc.dispatchEvent(HomeEventSignOut(context)),
+            child: const Text(
+              'deslogar',
+              style: TextStyle(color: Colors.black),
+            ))
+      ],
     );
   }
 
