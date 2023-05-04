@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_3/features/home/presentation/widgets/drawer_tile.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pokedex_3/core/components/drawer/bloc/drawer_bloc.dart';
+import 'package:pokedex_3/core/components/drawer/bloc/drawer_event.dart';
+import 'package:pokedex_3/core/utils/consts.dart';
 
-class CustomDrawer extends StatelessWidget {
+import 'drawer_tile.dart';
+
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  late DrawerBloc bloc;
+  late ConstsRoutes routes;
+
+  @override
+  void initState() {
+    bloc = GetIt.I.get();
+    routes = GetIt.I.get();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +44,13 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 DrawerTile(
                     icon: Icons.house_outlined,
-                    onPressed: () {},
+                    onPressed: () => bloc.dispatchEvent(
+                        DrawerEventNavigate(context, routes.homeView)),
                     title: 'home'),
                 DrawerTile(
                     icon: Icons.star_border_outlined,
-                    onPressed: () {},
+                    onPressed: () => bloc.dispatchEvent(
+                        DrawerEventNavigate(context, routes.favoriteView)),
                     title: 'favoritos')
               ],
             ),
