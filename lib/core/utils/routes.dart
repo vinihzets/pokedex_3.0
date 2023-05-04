@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../features/favorites/presentation/ui/favorite_view.dart';
 import '../../features/home/presentation/ui/home_view.dart';
 import '../../features/login/presentation/ui/login_view.dart';
 import '../../features/pokemon_details/presentation/ui/pokemon_details_view.dart';
