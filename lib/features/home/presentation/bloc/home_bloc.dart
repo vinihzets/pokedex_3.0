@@ -10,6 +10,7 @@ import 'package:pokedex_3/features/favorites/domain/usecases/get_list_favorites_
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
+import 'package:pokedex_3/features/home/domain/usecases/get_list_favorites_usecase_imp.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_event.dart';
 
 import '../../../../core/architeture/usecase.dart';
@@ -19,7 +20,7 @@ class HomeBloc extends Bloc {
   FetchPokemonUrlUseCaseImpl fetchPokemonUrlUseCaseImpl;
   FetchPokemonUrlTypeUseCaseImpl fetchPokemonUrlTypeUseCaseImpl;
   SignOutUseCaseImpl signOutUseCaseImpl;
-  GetListFavoritesUseCaseImpl getListFavoritesUseCaseImpl;
+  GetFavoritesUseCaseImpl getListFavoritesUseCaseImpl;
   ConstsRoutes routes;
   int currentIndex = 0;
   int limit = 20;

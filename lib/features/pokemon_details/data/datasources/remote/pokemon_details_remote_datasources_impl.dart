@@ -1,12 +1,11 @@
 import 'dart:developer';
 
-import 'package:pokedex_3/core/failure/failure.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/core/global/mappers/pokemon_firebase_mapper.dart';
-import 'package:pokedex_3/core/global/mappers/pokemon_mapper.dart';
 import 'package:pokedex_3/core/services/auth/auth_service.dart';
 import 'package:pokedex_3/core/services/database/database_service.dart';
 import 'package:pokedex_3/features/pokemon_details/data/datasources/pokemon_details_datasources.dart';
+import '../../mappers/pokemon_mapper.dart';
 
 class PokemonDetailsRemoteDataSourcesRemoteImpl
     implements PokemonDetailsDataSources {
@@ -18,8 +17,6 @@ class PokemonDetailsRemoteDataSourcesRemoteImpl
   @override
   Future<void> addFavorites(PokemonEntity pokemon) async {
     final dbFavorites = databaseService.database.collection('favorites');
-
-    final mapper = pokemon as PokemonMapper;
 
     final favoritesGet = await dbFavorites.get();
 
@@ -34,7 +31,7 @@ class PokemonDetailsRemoteDataSourcesRemoteImpl
         .toList();
 
     if (listFilter.isEmpty) {
-      dbFavorites.add(mapper.toMap()).then((value) => dbFavorites
+      dbFavorites.add(Mapper.toMap(pokemon)).then((value) => dbFavorites
           .doc(value.id)
           .update({'docId': value.id, 'userId': auth.auth.currentUser!.uid}));
     } else if (listFilter.isNotEmpty) {
