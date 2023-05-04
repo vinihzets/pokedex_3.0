@@ -12,6 +12,6 @@ class GetListFavoritesUseCaseImpl
 
   @override
   Future<Either<Failure, List<PokemonEntity>>> call(NoParams params) {
-    repository.getFavorites();
+    return repository.getFavorites();
   }
 }

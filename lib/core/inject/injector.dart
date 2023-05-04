@@ -1,13 +1,21 @@
 import 'package:get_it/get_it.dart';
+import 'package:pokedex_3/core/components/drawer/bloc/drawer_bloc.dart';
 import 'package:pokedex_3/core/services/auth/auth_service.dart';
 import 'package:pokedex_3/core/services/database/database_service.dart';
 import 'package:pokedex_3/core/utils/consts.dart';
+import 'package:pokedex_3/features/favorites/data/datasources/favorite_datasources.dart';
+import 'package:pokedex_3/features/favorites/data/datasources/remote/favorite_datasources_remote_impl.dart';
+import 'package:pokedex_3/features/favorites/data/repositories/favorite_repository_impl.dart';
+import 'package:pokedex_3/features/favorites/domain/repositories/favorite_repository.dart';
+import 'package:pokedex_3/features/favorites/domain/usecases/get_list_favorites_usecase_impl.dart';
+import 'package:pokedex_3/features/favorites/presentation/bloc/favorite_bloc.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/features/home/data/datasources/remote/home_datasources_remote_impl.dart';
 import 'package:pokedex_3/features/home/data/repositories/home_repository_impl.dart';
 import 'package:pokedex_3/features/home/domain/repositories/home_repository.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
+import 'package:pokedex_3/features/home/domain/usecases/get_list_favorites_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/sign_out_usecase_impl.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
 import 'package:pokedex_3/features/login/data/datasources/login_datasources.dart';
@@ -39,8 +47,12 @@ class Injector {
     getIt.registerLazySingleton(() => ConstsRoutes());
     getIt.registerLazySingleton(() => DatabaseService());
     getIt.registerLazySingleton(() => AuthService());
+    getIt.registerFactory(() => DrawerBloc());
 
     //datasources
+    getIt.registerLazySingleton<FavoriteDataSources>(
+        () => FavoriteDataSourcesRemoteImpl(getIt(), getIt()));
+
     getIt.registerLazySingleton<PokemonDetailsDataSources>(
         () => PokemonDetailsRemoteDataSourcesRemoteImpl(getIt(), getIt()));
 
@@ -54,6 +66,9 @@ class Injector {
         () => RegisterDataSourcesRemoteImpl(getIt(), getIt()));
 
     //repositories
+
+    getIt.registerLazySingleton<FavoriteRepository>(
+        () => FavoriteRepositoryImpl(getIt()));
 
     getIt.registerLazySingleton<PokemonDetailsRepository>(
         () => PokemonDetailsRepositoryImpl(getIt()));
@@ -69,6 +84,8 @@ class Injector {
 
     //usecases
 
+    getIt.registerLazySingleton(() => GetListFavoritesUseCaseImpl(getIt()));
+    getIt.registerLazySingleton(() => GetFavoritesUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => AddFavoritesUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => SignOutUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => FetchPokemonUrlTypeUseCaseImpl(getIt()));
@@ -78,8 +95,10 @@ class Injector {
 
     // --> bloc
 
+    getIt.registerFactory(() => FavoriteBloc(getIt()));
     getIt.registerFactory(() => PokemonDetailsBloc(getIt(), getIt()));
-    getIt.registerFactory(() => HomeBloc(getIt(), getIt(), getIt(), getIt()));
+    getIt.registerFactory(
+        () => HomeBloc(getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory(() => RegisterBloc(getIt()));
     getIt.registerFactory(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory(() => SplashBloc(getIt(), getIt()));

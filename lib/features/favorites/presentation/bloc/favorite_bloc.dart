@@ -24,7 +24,7 @@ class FavoriteBloc extends Bloc {
     getRequest.fold((l) {
       dispatchState(BlocErrorState(error: l.message));
     }, (r) {
-      inspect(r);
+      dispatchState(BlocStableState(data: r));
     });
   }
 }
