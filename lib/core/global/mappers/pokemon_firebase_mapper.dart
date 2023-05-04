@@ -18,13 +18,13 @@ class PokemonFavoriteFirebaseMapper extends PokemonEntity {
 
   factory PokemonFavoriteFirebaseMapper.fromMap(Map map) {
     return PokemonFavoriteFirebaseMapper(
-      map['docId'],
-      map['userId'],
-      map['name'],
-      map['id'],
-      map['weight'],
-      map['height'],
-      map['sprites']['other']['official-artwork']['front_default'],
+      map['docId'] ?? '',
+      map['userId'] ?? '',
+      map['name'] ?? '',
+      map['id'] ?? 0,
+      map['weight'] ?? 0,
+      map['height'] ?? 0,
+      map['sprites']['other']['official-artwork']['front_default'] ?? '',
       (map['types'] as List).map((e) => TypeMapper.fromMap(e)).toList(),
       map['isFavorited'] ?? false,
     );
