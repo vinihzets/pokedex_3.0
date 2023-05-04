@@ -31,7 +31,10 @@ class _FavoriteViewState extends State<FavoriteView> {
     return Scaffold(
       body: BlocScreenBuilder(
           stream: bloc.state,
-          onStable: (onStable) => FavoriteStableState(state: onStable),
+          onStable: (onStable) => FavoriteStableState(
+                state: onStable,
+                bloc: bloc,
+              ),
           onError: (onError) => FavoriteErrorState(state: onError),
           onLoading: (onLoading) => FavoriteLoadingState(state: onLoading),
           onEmpty: (onEmpty) => FavoriteEmptyState(state: onEmpty)),
