@@ -95,7 +95,7 @@ class Injector {
 
     // --> bloc
 
-    getIt.registerFactory(() => FavoriteBloc(getIt()));
+    getIt.registerFactory(() => FavoriteBloc(getIt(), getIt()));
     getIt.registerFactory(() => PokemonDetailsBloc(getIt(), getIt()));
     getIt.registerFactory(
         () => HomeBloc(getIt(), getIt(), getIt(), getIt(), getIt()));
