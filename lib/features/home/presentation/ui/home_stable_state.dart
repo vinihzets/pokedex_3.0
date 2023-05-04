@@ -27,7 +27,7 @@ class _HomeStableStateState extends State<HomeStableState> {
   void initState() {
     dataSources = GetIt.I.get();
     controller = ScrollController();
-
+    widget.bloc.dispatchEvent(HomeEventGetListFavorites());
     controller.addListener(infiniteScrolling);
 
     super.initState();
@@ -62,6 +62,7 @@ class _HomeStableStateState extends State<HomeStableState> {
                       pokemon.isFavorited = true;
                     }
                   }
+
                   return _buildStateData(pokemon);
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
