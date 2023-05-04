@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_3/core/components/bloc_screen_builder.dart';
@@ -11,8 +9,9 @@ import 'package:pokedex_3/features/home/presentation/ui/home_empty_state.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_error_state.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_loading_state.dart';
 import 'package:pokedex_3/features/home/presentation/ui/home_stable_state.dart';
-import 'package:pokedex_3/features/home/presentation/widgets/custom_drawer.dart';
 import 'package:pokedex_3/features/home/presentation/widgets/pokemon_search.dart';
+
+import '../../../../core/components/drawer/ui/custom_drawer.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -28,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     bloc = GetIt.I.get();
     dataSources = GetIt.I.get();
-
+    bloc.dispatchEvent(HomeEventGetListFavorites());
     bloc.dispatchEvent(HomeEventFetchUrl());
 
     super.initState();

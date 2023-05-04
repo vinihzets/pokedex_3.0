@@ -49,4 +49,15 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(RemoteFailure(message: e.message ?? ''));
     }
   }
+
+  @override
+  Future<Either<Failure, List<PokemonEntity>>> getFavorites() async {
+    try {
+      final getList = await dataSources.getFavorites();
+
+      return Right(getList);
+    } on Exception catch (e) {
+      return Left(RemoteFailure(message: e.toString()));
+    }
+  }
 }

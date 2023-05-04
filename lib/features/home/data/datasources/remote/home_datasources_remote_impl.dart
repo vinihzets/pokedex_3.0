@@ -52,19 +52,11 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
 
       final pokemon = PokemonMapper.fromMap(decode);
 
-      final docsGet =
-          await databaseService.database.collection('favorites').get();
-
-      final listFavorites = docsGet.docs
-          .map((e) => PokemonFavoriteFirebaseMapper.fromMap(e.data()))
-          .where((element) => element.userId == auth.auth.currentUser!.uid)
-          .toList();
-
-      for (var element in listFavorites) {
-        if (pokemon.name == element.name) {
-          pokemon.isFavorited = true;
-        }
-      }
+      // for (var element in listFavorites) {
+      //   if (pokemon.name == element.name) {
+      //     pokemon.isFavorited = true;
+      //   }
+      // }
 
       return pokemon;
     } else {
@@ -139,5 +131,18 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }
+  }
+
+  @override
+  Future<List<PokemonEntity>> getFavorites() async {
+    final docsGet =
+        await databaseService.database.collection('favorites').get();
+
+    final listFavorites = docsGet.docs
+        .map((e) => PokemonFavoriteFirebaseMapper.fromMap(e.data()))
+        .where((element) => element.userId == auth.auth.currentUser!.uid)
+        .toList();
+
+    return listFavorites;
   }
 }

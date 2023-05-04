@@ -10,4 +10,5 @@ abstract class HomeRepository {
   Future<Either<Failure, List<UrlEntity>>> fetchPokemonTypeUrl(
       TypeParams params);
   Future<Either<Failure, void>> signOut();
+  Future<Either<Failure, List<PokemonEntity>>> getFavorites();
 }

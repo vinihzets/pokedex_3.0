@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/architeture/event.dart';
+import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/core/utils/consts.dart';
+import 'package:pokedex_3/features/favorites/domain/usecases/get_list_favorites_usecase_impl.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_type_url_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecase_imp.dart';
@@ -17,19 +19,22 @@ class HomeBloc extends Bloc {
   FetchPokemonUrlUseCaseImpl fetchPokemonUrlUseCaseImpl;
   FetchPokemonUrlTypeUseCaseImpl fetchPokemonUrlTypeUseCaseImpl;
   SignOutUseCaseImpl signOutUseCaseImpl;
+  GetListFavoritesUseCaseImpl getListFavoritesUseCaseImpl;
   ConstsRoutes routes;
   int currentIndex = 0;
   int limit = 20;
 
   late List<UrlEntity> listUrls;
+  late List<PokemonEntity> favorites;
 
   HomeBloc(
-    this.fetchPokemonUrlUseCaseImpl,
-    this.routes,
-    this.fetchPokemonUrlTypeUseCaseImpl,
-    this.signOutUseCaseImpl,
-  ) {
+      this.fetchPokemonUrlUseCaseImpl,
+      this.routes,
+      this.fetchPokemonUrlTypeUseCaseImpl,
+      this.signOutUseCaseImpl,
+      this.getListFavoritesUseCaseImpl) {
     listUrls = [];
+    favorites = [];
   }
 
   @override
@@ -46,6 +51,8 @@ class HomeBloc extends Bloc {
       _handleSignOut(event.context);
     } else if (event is HomeEventOpenDrawer) {
       _handleOpenDrawer(event.context);
+    } else if (event is HomeEventGetListFavorites) {
+      _handleGetListFavorites();
     }
   }
 
@@ -95,5 +102,13 @@ class HomeBloc extends Bloc {
 
   _handleOpenDrawer(BuildContext context) {
     return Scaffold.of(context).openDrawer();
+  }
+
+  _handleGetListFavorites() async {
+    final getRequest = await getListFavoritesUseCaseImpl.call(NoParams());
+
+    getRequest.fold((l) {}, (r) {
+      favorites.addAll(r);
+    });
   }
 }

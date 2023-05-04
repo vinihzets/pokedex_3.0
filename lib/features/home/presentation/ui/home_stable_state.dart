@@ -56,6 +56,12 @@ class _HomeStableStateState extends State<HomeStableState> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final pokemon = snapshot.data!;
+
+                  for (var element in widget.bloc.favorites) {
+                    if (element.name == pokemon.name) {
+                      pokemon.isFavorited = true;
+                    }
+                  }
                   return _buildStateData(pokemon);
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
