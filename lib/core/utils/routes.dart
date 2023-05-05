@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_3/features/inventory/presentation/ui/inventory_view.dart';
 
 import '../../features/favorites/presentation/ui/favorite_view.dart';
 import '../../features/home/presentation/ui/home_view.dart';
@@ -17,6 +18,7 @@ class Routes {
       route.homeView: (_) => const HomeView(),
       route.pokemonDetails: (_) => const PokemonDetailsView(),
       route.favoriteView: (_) => const FavoriteView(),
+      route.inventoryView: (_) => const InventoryView(),
     };
     return routes;
   }
