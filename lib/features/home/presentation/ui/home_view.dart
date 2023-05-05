@@ -27,6 +27,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     bloc = GetIt.I.get();
     dataSources = GetIt.I.get();
+    bloc.dispatchEvent(HomeEventGetListFavorites());
     bloc.dispatchEvent(HomeEventFetchUrl());
 
     super.initState();
@@ -55,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
         builder: (context) => IconButton(
             onPressed: () => bloc.dispatchEvent(HomeEventOpenDrawer(context)),
             icon: const Icon(
-              Icons.library_books,
+              Icons.format_list_bulleted,
               color: Colors.black,
             )),
       ),
