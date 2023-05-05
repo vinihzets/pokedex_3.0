@@ -5,7 +5,7 @@ import 'package:pokedex_3/core/global/mappers/pokemon_firebase_mapper.dart';
 import 'package:pokedex_3/core/services/auth/auth_service.dart';
 import 'package:pokedex_3/core/services/database/database_service.dart';
 import 'package:pokedex_3/features/pokemon_details/data/datasources/pokemon_details_datasources.dart';
-import '../../mappers/pokemon_mapper.dart';
+import '../../mappers/mapper.dart';
 
 class PokemonDetailsRemoteDataSourcesRemoteImpl
     implements PokemonDetailsDataSources {
