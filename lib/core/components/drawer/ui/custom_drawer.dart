@@ -51,7 +51,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     icon: Icons.star_border_outlined,
                     onPressed: () => bloc.dispatchEvent(
                         DrawerEventNavigate(context, routes.favoriteView)),
-                    title: 'favoritos')
+                    title: 'favoritos'),
+                DrawerTile(
+                    icon: Icons.shopping_bag_outlined,
+                    onPressed: () => bloc.dispatchEvent(
+                        DrawerEventNavigate(context, routes.inventoryView)),
+                    title: 'Inventario')
               ],
             ),
           ],

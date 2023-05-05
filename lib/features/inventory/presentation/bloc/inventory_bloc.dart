@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc.dart';
+import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/architeture/event.dart';
 import 'package:pokedex_3/core/architeture/usecase.dart';
 import 'package:pokedex_3/features/inventory/domain/usecases/get_inventory_usecase_impl.dart';
@@ -15,14 +17,24 @@ class InventoryBloc extends Bloc {
   mapListenEvent(Event event) {
     if (event is InventoryEventFetch) {
       _handleFetchInventory();
+    } else if (event is InventoryEventOpenDrawer) {
+      _handleOpenDrawer(event.context);
     }
   }
 
   _handleFetchInventory() async {
+    dispatchState(BlocLoadingState());
+
     final fetchRequest = await getInventoryUseCaseImpl.call(NoParams());
 
-    fetchRequest.fold((l) {}, (r) {
-      inspect(r);
+    fetchRequest.fold((l) {
+      dispatchState(BlocErrorState(error: l.message));
+    }, (r) {
+      dispatchState(BlocStableState(data: r));
     });
+  }
+
+  _handleOpenDrawer(BuildContext context) {
+    return Scaffold.of(context).openDrawer();
   }
 }

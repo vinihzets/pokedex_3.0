@@ -30,9 +30,13 @@ class _InventoryViewState extends State<InventoryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Inventario'),
+        centerTitle: true,
         leading: Builder(
             builder: (context) => IconButton(
-                onPressed: () {}, icon: const Icon(Icons.arrow_back))),
+                onPressed: () =>
+                    bloc.dispatchEvent(InventoryEventOpenDrawer(context)),
+                icon: const Icon(Icons.list))),
       ),
       drawer: const CustomDrawer(),
       body: BlocScreenBuilder(
