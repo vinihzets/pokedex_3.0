@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_3/core/components/bloc_screen_builder.dart';
 import 'package:pokedex_3/core/components/drawer/ui/custom_drawer.dart';
-import 'package:pokedex_3/features/favorites/presentation/bloc/favorite_bloc.dart';
 import 'package:pokedex_3/features/inventory/presentation/bloc/inventory_bloc.dart';
+import 'package:pokedex_3/features/inventory/presentation/bloc/inventory_event.dart';
 import 'package:pokedex_3/features/inventory/presentation/ui/inventory_empty_state.dart';
 import 'package:pokedex_3/features/inventory/presentation/ui/inventory_error_state.dart';
 import 'package:pokedex_3/features/inventory/presentation/ui/inventory_loading_state.dart';
@@ -22,6 +22,7 @@ class _InventoryViewState extends State<InventoryView> {
   @override
   void initState() {
     bloc = GetIt.I.get();
+    bloc.dispatchEvent(InventoryEventFetch());
     super.initState();
   }
 

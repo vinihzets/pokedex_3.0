@@ -18,6 +18,12 @@ import 'package:pokedex_3/features/home/domain/usecases/fetch_pokemon_url_usecas
 import 'package:pokedex_3/features/home/domain/usecases/get_list_favorites_usecase_imp.dart';
 import 'package:pokedex_3/features/home/domain/usecases/sign_out_usecase_impl.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
+import 'package:pokedex_3/features/inventory/data/datasources/inventory_datasources.dart';
+import 'package:pokedex_3/features/inventory/data/datasources/remote/inventory_datasources_remote_impl.dart';
+import 'package:pokedex_3/features/inventory/data/repositories/inventory_repository_impl.dart';
+import 'package:pokedex_3/features/inventory/domain/repositories/inventory_repository.dart';
+import 'package:pokedex_3/features/inventory/domain/usecases/get_inventory_usecase_impl.dart';
+import 'package:pokedex_3/features/inventory/presentation/bloc/inventory_bloc.dart';
 import 'package:pokedex_3/features/login/data/datasources/login_datasources.dart';
 import 'package:pokedex_3/features/login/data/datasources/remote/login_datasources_remote_imp.dart';
 import 'package:pokedex_3/features/login/data/repositories/login_repository_imp.dart';
@@ -50,6 +56,10 @@ class Injector {
     getIt.registerFactory(() => DrawerBloc());
 
     //datasources
+
+    getIt.registerLazySingleton<InventoryDataSources>(
+        () => InventoryDataSourcesRemoteImpl(getIt(), getIt()));
+
     getIt.registerLazySingleton<FavoriteDataSources>(
         () => FavoriteDataSourcesRemoteImpl(getIt(), getIt()));
 
@@ -66,6 +76,9 @@ class Injector {
         () => RegisterDataSourcesRemoteImpl(getIt(), getIt()));
 
     //repositories
+
+    getIt.registerLazySingleton<InventoryRepository>(
+        () => InventoryRepositoryImpl(getIt()));
 
     getIt.registerLazySingleton<FavoriteRepository>(
         () => FavoriteRepositoryImpl(getIt()));
@@ -84,6 +97,7 @@ class Injector {
 
     //usecases
 
+    getIt.registerLazySingleton(() => GetInventoryUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetListFavoritesUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetFavoritesUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => AddFavoritesUseCaseImpl(getIt()));
@@ -95,6 +109,7 @@ class Injector {
 
     // --> bloc
 
+    getIt.registerFactory(() => InventoryBloc(getIt()));
     getIt.registerFactory(() => FavoriteBloc(getIt(), getIt()));
     getIt.registerFactory(() => PokemonDetailsBloc(getIt(), getIt()));
     getIt.registerFactory(

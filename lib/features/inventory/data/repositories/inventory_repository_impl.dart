@@ -9,7 +9,7 @@ class InventoryRepositoryImpl implements InventoryRepository {
 
   InventoryRepositoryImpl(this.dataSources);
   @override
-  Future<Either<Failure, InventoryEntity>> getInventory() async {
+  Future<Either<Failure, List<InventoryEntity>>> getInventory() async {
     try {
       final getRequest = await dataSources.getInventory();
 
