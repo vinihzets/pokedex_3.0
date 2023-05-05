@@ -21,6 +21,7 @@ class _FavoriteViewState extends State<FavoriteView> {
   @override
   void initState() {
     bloc = GetIt.I.get();
+
     bloc.dispatchEvent(FavoriteEventGetListFavorites());
 
     super.initState();

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 import 'package:pokedex_3/core/architeture/event.dart';
@@ -19,6 +20,8 @@ class FavoriteBloc extends Bloc {
       _handleGetListFavorites();
     } else if (event is FavoriteEventNavigateToDetails) {
       navigateThenUntilArgs(event.context, routes.pokemonDetails, event.args);
+    } else if (event is FavoriteEventOpenDrawer) {
+      _handleOpenDrawer(event.context);
     }
   }
 
@@ -35,5 +38,9 @@ class FavoriteBloc extends Bloc {
 
       dispatchState(BlocStableState(data: r));
     });
+  }
+
+  _handleOpenDrawer(BuildContext context) {
+    return Scaffold.of(context).openDrawer();
   }
 }

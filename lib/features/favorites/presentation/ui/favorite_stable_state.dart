@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
+import 'package:pokedex_3/core/components/drawer/ui/custom_drawer.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/favorites/presentation/bloc/favorite_bloc.dart';
 import 'package:pokedex_3/features/favorites/presentation/bloc/favorite_event.dart';
@@ -13,7 +14,16 @@ class FavoriteStableState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+                onPressed: () =>
+                    bloc.dispatchEvent(FavoriteEventOpenDrawer(context)),
+                icon: const Icon(Icons.format_list_bulleted_rounded));
+          },
+        ),
         backgroundColor: Colors.black,
         elevation: 0,
         title: const Text(

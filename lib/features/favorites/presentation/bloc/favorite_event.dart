@@ -11,3 +11,9 @@ class FavoriteEventNavigateToDetails implements FavoriteEvent {
 
   FavoriteEventNavigateToDetails(this.context, this.args);
 }
+
+class FavoriteEventOpenDrawer implements FavoriteEvent {
+  BuildContext context;
+
+  FavoriteEventOpenDrawer(this.context);
+}
