@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
             )),
       ),
       title: const Text(
-        'Dex 3.0',
+        'PokeDex',
         style: TextStyle(color: Colors.black, fontSize: 24),
       ),
       centerTitle: true,
@@ -80,11 +80,43 @@ class _HomeViewState extends State<HomeView> {
               Icons.search,
               color: Colors.black,
             )),
-        TextButton(
-            onPressed: () => bloc.dispatchEvent(HomeEventSignOut(context)),
-            child: const Text(
-              'deslogar',
-              style: TextStyle(color: Colors.black),
+        IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 12),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                  'Voce realmente deseja fazer log-out do aplicativo?'),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextButton(
+                                      onPressed: () => bloc.dispatchEvent(
+                                          HomeEventNavigatePop(context)),
+                                      child: const Text('Inicio')),
+                                  TextButton(
+                                      onPressed: () => bloc.dispatchEvent(
+                                          HomeEventSignOut(context)),
+                                      child: const Text(
+                                        'Sair',
+                                        style: TextStyle(color: Colors.red),
+                                      )),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ));
+            },
+            icon: const Icon(
+              Icons.highlight_remove_sharp,
+              color: Colors.black,
             ))
       ],
     );

@@ -17,7 +17,7 @@ class InventoryStableState extends StatelessWidget {
       children: [
         Card(
           child: ExpansionTile(
-            title: const Text('items'),
+            title: const Text('Items'),
             children: listInventory
                 .map((e) => Column(
                       children: e.pokeballs.isNotEmpty

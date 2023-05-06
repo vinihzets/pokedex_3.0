@@ -7,8 +7,21 @@ class InventoryEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+    return Scaffold(
+      body: Center(
+          child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(
+            Icons.card_travel_sharp,
+            size: 66,
+          ),
+          Text(
+            'Seu inventario esta vazio',
+            style: TextStyle(fontSize: 34),
+          )
+        ],
+      )),
     );
   }
 }

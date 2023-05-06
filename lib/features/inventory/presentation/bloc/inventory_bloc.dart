@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc.dart';
@@ -30,7 +31,11 @@ class InventoryBloc extends Bloc {
     fetchRequest.fold((l) {
       dispatchState(BlocErrorState(error: l.message));
     }, (r) {
-      dispatchState(BlocStableState(data: r));
+      if (r.isEmpty) {
+        dispatchState(BlocEmptyState());
+      } else if (r.isNotEmpty) {
+        dispatchState(BlocStableState(data: r));
+      }
     });
   }
 
