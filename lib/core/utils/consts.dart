@@ -6,4 +6,5 @@ class ConstsRoutes {
   final String pokemonDetails = 'pokemonDetails';
   final String favoriteView = 'favorite';
   final String inventoryView = 'inventory';
+  final String aleatoryPokemonView = 'aleatory';
 }

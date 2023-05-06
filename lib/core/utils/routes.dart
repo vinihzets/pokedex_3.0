@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/presentation/ui/aleatory_pokemon_ui.dart';
 import 'package:pokedex_3/features/inventory/presentation/ui/inventory_view.dart';
 
 import '../../features/favorites/presentation/ui/favorite_view.dart';
@@ -19,6 +20,7 @@ class Routes {
       route.pokemonDetails: (_) => const PokemonDetailsView(),
       route.favoriteView: (_) => const FavoriteView(),
       route.inventoryView: (_) => const InventoryView(),
+      route.aleatoryPokemonView: (_) => const AleatoryPokemonView()
     };
     return routes;
   }
