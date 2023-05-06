@@ -3,6 +3,12 @@ import 'package:pokedex_3/core/components/drawer/bloc/drawer_bloc.dart';
 import 'package:pokedex_3/core/services/auth/auth_service.dart';
 import 'package:pokedex_3/core/services/database/database_service.dart';
 import 'package:pokedex_3/core/utils/consts.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/data/datasources/aleatory_pokemon_datasources.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/data/datasources/remote/aleatory_pokemon_datasources_remote_impl.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/data/repositories/aleatory_pokemon_repository_impl.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/domain/repositories/aleatory_pokemon_repository.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/domain/usecases/fetch_aleatory_pokemon.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/presentation/bloc/aleatory_pokemon_bloc.dart';
 import 'package:pokedex_3/features/favorites/data/datasources/favorite_datasources.dart';
 import 'package:pokedex_3/features/favorites/data/datasources/remote/favorite_datasources_remote_impl.dart';
 import 'package:pokedex_3/features/favorites/data/repositories/favorite_repository_impl.dart';
@@ -57,6 +63,9 @@ class Injector {
 
     //datasources
 
+    getIt.registerLazySingleton<AleatoryPokemonDataSources>(
+        () => AleatoryPokemonDataSourcesRemoteImpl());
+
     getIt.registerLazySingleton<InventoryDataSources>(
         () => InventoryDataSourcesRemoteImpl(getIt(), getIt()));
 
@@ -76,6 +85,9 @@ class Injector {
         () => RegisterDataSourcesRemoteImpl(getIt(), getIt()));
 
     //repositories
+
+    getIt.registerLazySingleton<AleatoryPokemonRepository>(
+        () => AleatoryPokemonRepositoryImpl(getIt()));
 
     getIt.registerLazySingleton<InventoryRepository>(
         () => InventoryRepositoryImpl(getIt()));
@@ -97,6 +109,7 @@ class Injector {
 
     //usecases
 
+    getIt.registerLazySingleton(() => FetchAleatoryPokemonUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetInventoryUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetListFavoritesUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetFavoritesUseCaseImpl(getIt()));
@@ -109,6 +122,7 @@ class Injector {
 
     // --> bloc
 
+    getIt.registerFactory(() => AleatoryPokemonBloc(getIt()));
     getIt.registerFactory(() => InventoryBloc(getIt()));
     getIt.registerFactory(() => FavoriteBloc(getIt(), getIt()));
     getIt.registerFactory(() => PokemonDetailsBloc(getIt(), getIt()));
