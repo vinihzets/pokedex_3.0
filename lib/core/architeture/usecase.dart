@@ -19,3 +19,9 @@ class TypeParams {
 
   TypeParams(this.url);
 }
+
+class IdPokemonParams {
+  int id;
+
+  IdPokemonParams(this.id);
+}
