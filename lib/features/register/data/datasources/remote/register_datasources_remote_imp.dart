@@ -28,7 +28,8 @@ class RegisterDataSourcesRemoteImpl implements RegisterDataSources {
         .then((value) => databaseService.database
             .collection('inventory')
             .doc(value.id)
-            .update({'docId': value.id, 'userId': auth.user!.uid}));
+            .update(
+                {'docId': value.id, 'userId': auth.user!.uid, 'pokemons': []}));
 
     return auth;
   }
