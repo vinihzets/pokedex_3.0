@@ -52,12 +52,6 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
 
       final pokemon = PokemonMapper.fromMap(decode);
 
-      // for (var element in listFavorites) {
-      //   if (pokemon.name == element.name) {
-      //     pokemon.isFavorited = true;
-      //   }
-      // }
-
       return pokemon;
     } else {
       throw const HttpException('Erro na requisicao de details');
