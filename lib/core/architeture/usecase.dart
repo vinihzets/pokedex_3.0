@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pokedex_3/core/failure/failure.dart';
+import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 
 abstract class UseCase<Input, Output> {
   Future<Either<Failure, Output>> call(Input params);
@@ -18,6 +19,12 @@ class TypeParams {
   String url;
 
   TypeParams(this.url);
+}
+
+class PokemonCaughtParams {
+  PokemonEntity pokemon;
+
+  PokemonCaughtParams(this.pokemon);
 }
 
 class IdPokemonParams {

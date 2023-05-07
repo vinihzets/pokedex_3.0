@@ -7,7 +7,8 @@ import 'package:pokedex_3/features/aleatory_pokemon/data/datasources/aleatory_po
 import 'package:pokedex_3/features/aleatory_pokemon/data/datasources/remote/aleatory_pokemon_datasources_remote_impl.dart';
 import 'package:pokedex_3/features/aleatory_pokemon/data/repositories/aleatory_pokemon_repository_impl.dart';
 import 'package:pokedex_3/features/aleatory_pokemon/domain/repositories/aleatory_pokemon_repository.dart';
-import 'package:pokedex_3/features/aleatory_pokemon/domain/usecases/fetch_aleatory_pokemon.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/domain/usecases/caught_aleatory_pokemon_usecase_impl.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/domain/usecases/fetch_aleatory_pokemon_usecase_impl.dart';
 import 'package:pokedex_3/features/aleatory_pokemon/presentation/bloc/aleatory_pokemon_bloc.dart';
 import 'package:pokedex_3/features/favorites/data/datasources/favorite_datasources.dart';
 import 'package:pokedex_3/features/favorites/data/datasources/remote/favorite_datasources_remote_impl.dart';
@@ -64,7 +65,7 @@ class Injector {
     //datasources
 
     getIt.registerLazySingleton<AleatoryPokemonDataSources>(
-        () => AleatoryPokemonDataSourcesRemoteImpl());
+        () => AleatoryPokemonDataSourcesRemoteImpl(getIt(), getIt()));
 
     getIt.registerLazySingleton<InventoryDataSources>(
         () => InventoryDataSourcesRemoteImpl(getIt(), getIt()));
@@ -109,6 +110,8 @@ class Injector {
 
     //usecases
 
+    getIt
+        .registerLazySingleton(() => CaughtAleatoryPokemonUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => FetchAleatoryPokemonUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetInventoryUseCaseImpl(getIt()));
     getIt.registerLazySingleton(() => GetListFavoritesUseCaseImpl(getIt()));
@@ -122,7 +125,7 @@ class Injector {
 
     // --> bloc
 
-    getIt.registerFactory(() => AleatoryPokemonBloc(getIt()));
+    getIt.registerFactory(() => AleatoryPokemonBloc(getIt(), getIt()));
     getIt.registerFactory(() => InventoryBloc(getIt()));
     getIt.registerFactory(() => FavoriteBloc(getIt(), getIt()));
     getIt.registerFactory(() => PokemonDetailsBloc(getIt(), getIt()));
