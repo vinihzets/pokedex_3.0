@@ -1,13 +1,23 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:math';
-
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
+import 'package:pokedex_3/features/aleatory_pokemon/data/mappers/aleatory_pokemon_mapper.dart';
+import 'package:pokedex_3/features/inventory/data/mappers/inventory_mapper.dart';
 import 'package:pokedex_3/core/global/mappers/pokemon_mapper.dart';
+import 'package:pokedex_3/core/services/auth/auth_service.dart';
+import 'package:pokedex_3/core/services/database/database_service.dart';
 import 'package:pokedex_3/features/aleatory_pokemon/data/datasources/aleatory_pokemon_datasources.dart';
 import 'package:http/http.dart' as http;
 
 class AleatoryPokemonDataSourcesRemoteImpl
     implements AleatoryPokemonDataSources {
+  DatabaseService _databaseService;
+  AuthService _authService;
+
+  AleatoryPokemonDataSourcesRemoteImpl(
+      this._databaseService, this._authService);
+
   @override
   Future<PokemonEntity> fetchAleatory() async {
     var random = Random();
@@ -27,5 +37,35 @@ class AleatoryPokemonDataSourcesRemoteImpl
     }
 
     throw Exception();
+  }
+
+  @override
+  Future caught(PokemonEntity pokemon) async {
+    final collectionReference =
+        _databaseService.database.collection('inventory');
+
+    final getCollection = await collectionReference.get();
+
+    final getDocs = getCollection.docs
+        .map((e) => InventoryMapper.fromMap(e.data()))
+        .where(
+            (element) => element.userId == _authService.auth.currentUser!.uid)
+        .toList();
+
+    final inventory = getDocs.first;
+
+    if (getDocs.isNotEmpty) {
+      final listPokemons = [...inventory.pokemons, pokemon];
+
+      await collectionReference.doc(inventory.docId).update({
+        'pokemons': listPokemons
+            .map((e) => AleatoryPokemonMapper.toMap(pokemon))
+            .toList()
+      });
+    } else {
+      collectionReference.doc(inventory.docId).update({
+        'pokemons': [pokemon],
+      });
+    }
   }
 }

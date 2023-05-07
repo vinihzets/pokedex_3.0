@@ -19,4 +19,15 @@ class AleatoryPokemonRepositoryImpl implements AleatoryPokemonRepository {
       return Left(RemoteFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> caught(PokemonEntity pokemon) async {
+    try {
+      final caughtRequest = await dataSources.caught(pokemon);
+
+      return Right(caughtRequest);
+    } on Exception catch (e) {
+      return Left(RemoteFailure(message: e.toString()));
+    }
+  }
 }
