@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
+import 'package:pokedex_3/core/architeture/usecase.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/aleatory_pokemon/presentation/bloc/aleatory_pokemon_bloc.dart';
 import 'package:pokedex_3/features/home/presentation/widgets/build_pokemon_container_card.dart';
+
+import '../bloc/aleatory_pokemon_event.dart';
 
 class AleatoryPokemonStableState extends StatelessWidget {
   final BlocState state;
@@ -15,16 +18,14 @@ class AleatoryPokemonStableState extends StatelessWidget {
     final PokemonEntity pokemon = state.data;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(pokemon.name),
-        centerTitle: true,
-      ),
       body: Container(
         color: pokemon.types.first.element.getColor(),
         child: Column(
           children: [
             TextButton(
-                onPressed: () => bloc.handleTryCaughtPokemon(),
+                onPressed: () => bloc.dispatchEvent(
+                    AleatoryPokemonEventTryCaught(
+                        context, PokemonCaughtParams(pokemon))),
                 child: const Text(
                   'Try Caught',
                   style:

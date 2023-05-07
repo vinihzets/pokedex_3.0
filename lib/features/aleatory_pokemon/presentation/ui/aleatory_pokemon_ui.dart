@@ -30,10 +30,11 @@ class _AleatoryPokemonViewState extends State<AleatoryPokemonView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () =>
-                bloc.dispatchEvent(AleatoryPokemonEventOpenDrawer(context)),
-            icon: const Icon(Icons.arrow_back)),
+        leading: Builder(
+          builder: (context) => IconButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: const Icon(Icons.arrow_back)),
+        ),
       ),
       drawer: const CustomDrawer(),
       body: BlocScreenBuilder(
