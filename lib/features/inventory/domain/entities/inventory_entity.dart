@@ -4,9 +4,9 @@ import 'package:pokedex_3/core/global/entities/pokeball_entity.dart';
 class InventoryEntity {
   String userId;
 
-  List<PokeballEntity> pokeballs;
-
   List<PokemonEntity> pokemons;
+  List<PokeballEntity> pokeballs;
+  String docId;
 
-  InventoryEntity(this.pokeballs, this.pokemons, this.userId);
+  InventoryEntity(this.pokeballs, this.pokemons, this.userId, this.docId);
 }

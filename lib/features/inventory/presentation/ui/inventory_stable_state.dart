@@ -41,9 +41,14 @@ class InventoryStableState extends StatelessWidget {
             title: const Text('Pokemons'),
             children: listInventory
                 .map((e) => Column(
-                      children: e.pokemons.isNotEmpty
-                          ? e.pokemons.map((e) => Text(e.name)).toList()
-                          : [const Text('Nenhum pokemon capturado ainda ')],
+                      children: e.pokemons
+                          .map((e) => ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(e.sprite),
+                                ),
+                                title: Text(e.name),
+                              ))
+                          .toList(),
                     ))
                 .toList(),
           ),
