@@ -23,39 +23,39 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
 
   @override
   Future<List<UrlEntity>> fetchPokemonUrl(IndexApiParams params) async {
-    var url = Uri.parse(
+    final url = Uri.parse(
         'https://pokeapi.co/api/v2/pokemon?offset=${params.currentIndex}&limit=${params.limit}');
 
-    var response = await http.get(url);
+    final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final decode = jsonDecode(response.body);
-
-      final list = decode['results'] as List;
-
-      final listUrls = list.map(UrlMapper.fromMap).toList();
-
-      return listUrls;
-    } else {
+    if (response.statusCode != 200) {
       throw const HttpException('Erro na requisicao');
     }
+
+    final decode = jsonDecode(response.body);
+
+    final list = List<Map<String, dynamic>>.from(decode['results']);
+
+    final listUrls = list.map(UrlMapper.fromMap).toList();
+
+    return listUrls;
   }
 
   @override
   Future<PokemonEntity> fetchPokemonDetails(String pokemonUrl) async {
-    var url = Uri.parse(pokemonUrl);
+    final url = Uri.parse(pokemonUrl);
 
-    var response = await http.get(url);
+    final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final decode = jsonDecode(response.body);
-
-      final pokemon = PokemonMapper.fromMap(decode);
-
-      return pokemon;
-    } else {
+    if (response.statusCode != 200) {
       throw const HttpException('Erro na requisicao de details');
     }
+
+    final decode = jsonDecode(response.body);
+
+    final pokemon = PokemonMapper.fromMap(decode);
+
+    return pokemon;
   }
 
   @override
@@ -65,14 +65,13 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
-      final decode = jsonDecode(response.body);
-
-      final toObject = PokemonMapper.fromMap(decode);
-
-      return toObject;
-    } else {
-      throw Exception();
+      throw const HttpException('erro na requisicao');
     }
+    final decode = jsonDecode(response.body);
+
+    final toObject = PokemonMapper.fromMap(decode);
+
+    return toObject;
   }
 
   @override
@@ -81,17 +80,16 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
 
     var response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final decode = jsonDecode(response.body);
-
-      final list = decode['results'] as List;
-
-      final listUrl = list.map((e) => UrlMapper.fromMap(e)).toList();
-
-      return listUrl;
-    } else {
-      throw const HttpException('Erro na requisicao api');
+    if (response.statusCode != 200) {
+      throw const HttpException('erro na requisicao');
     }
+    final decode = jsonDecode(response.body);
+
+    final list = decode['results'] as List;
+
+    final listUrl = list.map((e) => UrlMapper.fromMap(e)).toList();
+
+    return listUrl;
   }
 
   @override
@@ -101,17 +99,17 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
-      final decode = jsonDecode(response.body);
-
-      final listPokemons = decode['pokemon'] as List;
-
-      final parserToObject =
-          listPokemons.map((e) => UrlMapper.fromMap(e)).toList();
-
-      return parserToObject;
-    } else {
       throw const HttpException('erro na requisicao');
     }
+
+    final decode = jsonDecode(response.body);
+
+    final listPokemons = decode['pokemon'] as List;
+
+    final parserToObject =
+        listPokemons.map((e) => UrlMapper.fromMap(e)).toList();
+
+    return parserToObject;
   }
 
   @override
