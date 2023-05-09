@@ -34,7 +34,6 @@ class AleatoryPokemonBloc extends Bloc {
     final fetchRequest = await fetchAleatoryPokemonUseCaseImpl.call(NoParams());
 
     fetchRequest.fold((l) {}, (r) {
-      inspect(r);
       dispatchState(BlocStableState(data: r));
     });
   }

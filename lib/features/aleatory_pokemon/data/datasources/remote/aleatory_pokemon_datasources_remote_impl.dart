@@ -40,7 +40,7 @@ class AleatoryPokemonDataSourcesRemoteImpl
   }
 
   @override
-  Future caught(PokemonEntity pokemon) async {
+  Future caughtPokemon(PokemonEntity pokemon) async {
     final collectionReference =
         _databaseService.database.collection('inventory');
 
@@ -53,13 +53,19 @@ class AleatoryPokemonDataSourcesRemoteImpl
         .toList();
 
     final inventory = getDocs.first;
+    final pokeballs = inventory.pokeballs;
 
     if (getDocs.isNotEmpty) {
       final listPokemons = [...inventory.pokemons, pokemon];
+      inspect(listPokemons);
+      pokeballs.first.quantity--;
 
       await collectionReference.doc(inventory.docId).update({
         'pokemons': listPokemons
-            .map((e) => AleatoryPokemonMapper.toMap(pokemon))
+            .map((e) => AleatoryPokemonMapper.toMapPokemon(e))
+            .toList(),
+        'pokeballs': pokeballs
+            .map((e) => AleatoryPokemonMapper.toMapPokeball(e))
             .toList()
       });
     } else {

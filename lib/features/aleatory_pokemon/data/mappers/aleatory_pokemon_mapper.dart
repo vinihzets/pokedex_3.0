@@ -1,7 +1,9 @@
+import 'package:pokedex_3/core/global/entities/pokeball_entity.dart';
+
 import '../../../../core/global/entities/pokemon_entity.dart';
 
 class AleatoryPokemonMapper {
-  static toMap(PokemonEntity pokemon) {
+  static toMapPokemon(PokemonEntity pokemon) {
     return {
       'name': pokemon.name,
       'id': pokemon.id,
@@ -18,6 +20,14 @@ class AleatoryPokemonMapper {
         };
         return map;
       })
+    };
+  }
+
+  static toMapPokeball(PokeballEntity pokeball) {
+    return {
+      'ball': pokeball.ball,
+      'quantity': pokeball.quantity,
+      'rate': pokeball.rate,
     };
   }
 }

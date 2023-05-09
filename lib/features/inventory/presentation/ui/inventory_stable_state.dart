@@ -37,21 +37,20 @@ class InventoryStableState extends StatelessWidget {
           ),
         ),
         Card(
-          child: ExpansionTile(
-            title: const Text('Pokemons'),
-            children: listInventory
-                .map((e) => Column(
-                      children: e.pokemons
-                          .map((e) => ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(e.sprite),
-                                ),
-                                title: Text(e.name),
-                              ))
-                          .toList(),
-                    ))
-                .toList(),
-          ),
+          child: ExpansionTile(title: const Text('Pokemons'), children: [
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: listInventory.first.pokemons.length,
+                itemBuilder: (context, index) {
+                  final pokemon = listInventory.first.pokemons[index];
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(pokemon.sprite),
+                    ),
+                    title: Text(pokemon.name),
+                  );
+                })
+          ]),
         )
       ],
     ));

@@ -23,7 +23,7 @@ class AleatoryPokemonRepositoryImpl implements AleatoryPokemonRepository {
   @override
   Future<Either<Failure, dynamic>> caught(PokemonEntity pokemon) async {
     try {
-      final caughtRequest = await dataSources.caught(pokemon);
+      final caughtRequest = await dataSources.caughtPokemon(pokemon);
 
       return Right(caughtRequest);
     } on Exception catch (e) {
