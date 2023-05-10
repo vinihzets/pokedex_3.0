@@ -1,4 +1,3 @@
-import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/core/global/mappers/pokeball_mapper.dart';
 import 'package:pokedex_3/core/global/mappers/pokemon_mapper.dart';
 import 'package:pokedex_3/features/inventory/domain/entities/inventory_entity.dart';

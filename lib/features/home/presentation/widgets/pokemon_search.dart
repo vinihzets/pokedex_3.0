@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_3/features/home/data/datasources/home_datasources.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
-import 'package:pokedex_3/features/home/presentation/widgets/build_pokemon_container_card.dart';
+import 'package:pokedex_3/core/utils/build_pokemon_container_card.dart';
 
 class PokemonSearch extends SearchDelegate<String> {
   final HomeDataSources dataSources;

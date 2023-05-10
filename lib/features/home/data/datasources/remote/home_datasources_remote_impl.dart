@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pokedex_3/core/global/mappers/pokemon_firebase_mapper.dart';
 import 'package:pokedex_3/core/services/auth/auth_service.dart';
@@ -64,7 +62,7 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
 
     var response = await http.get(url);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode != 200) {
       throw const HttpException('erro na requisicao');
     }
     final decode = jsonDecode(response.body);
@@ -98,7 +96,7 @@ class HomeDataSourcesRemoteImpl implements HomeDataSources {
 
     var response = await http.get(url);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode != 200) {
       throw const HttpException('erro na requisicao');
     }
 

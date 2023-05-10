@@ -1,5 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
 
 class RegisterErrorState extends StatelessWidget {
@@ -9,6 +8,6 @@ class RegisterErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold();
   }
 }

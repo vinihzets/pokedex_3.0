@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class StringTranslate {
   static convert(String content) {
     if (content == 'The email address is badly formatted.') {

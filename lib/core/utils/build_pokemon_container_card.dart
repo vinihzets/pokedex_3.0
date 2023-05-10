@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:pokedex_3/core/utils/first_string_uppercase.dart';
 import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_3/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:pokedex_3/features/splash/presentation/bloc/splash_event.dart';

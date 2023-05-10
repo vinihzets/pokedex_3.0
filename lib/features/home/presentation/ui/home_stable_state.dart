@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_3/core/architeture/bloc_state.dart';
@@ -8,7 +6,7 @@ import 'package:pokedex_3/core/global/entities/pokemon_entity.dart';
 import 'package:pokedex_3/features/home/domain/entities/url_entity.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_bloc.dart';
 import 'package:pokedex_3/features/home/presentation/bloc/home_event.dart';
-import 'package:pokedex_3/features/home/presentation/widgets/build_pokemon_container_card.dart';
+import 'package:pokedex_3/core/utils/build_pokemon_container_card.dart';
 
 class HomeStableState extends StatefulWidget {
   final BlocState state;

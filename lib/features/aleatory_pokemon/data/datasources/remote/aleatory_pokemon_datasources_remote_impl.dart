@@ -12,8 +12,8 @@ import 'package:http/http.dart' as http;
 
 class AleatoryPokemonDataSourcesRemoteImpl
     implements AleatoryPokemonDataSources {
-  DatabaseService _databaseService;
-  AuthService _authService;
+  final DatabaseService _databaseService;
+  final AuthService _authService;
 
   AleatoryPokemonDataSourcesRemoteImpl(
       this._databaseService, this._authService);

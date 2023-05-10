@@ -67,7 +67,7 @@ class _RegisterStableStateState extends State<RegisterStableState> {
                       width: 260,
                       child: TextField(
                         controller: usernameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: 'userName',
                             border: OutlineInputBorder(
                                 borderRadius:

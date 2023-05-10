@@ -86,7 +86,7 @@ class _HomeViewState extends State<HomeView> {
                   context: context,
                   builder: (context) => Dialog(
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 12),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
